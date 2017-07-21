@@ -8,7 +8,7 @@ module.exports = {
     browser: true,
     node: true
   },
-  extends: 'standard',
+  extends: 'eslint:recommended',
   globals: {
     __static: true
   },
@@ -16,10 +16,14 @@ module.exports = {
     'html'
   ],
   'rules': {
-    // allow paren-less arrow functions
-    'arrow-parens': 0,
-    // allow async-await
-    'generator-star-spacing': 0,
+    'no-implied-eval': 1,
+    'no-loop-func': 1,
+    'indent': ["warn", 4, { "SwitchCase": 1 }],
+    'no-mixed-spaces-and-tabs': 1,
+    'semi': ["error", "never"],
+    'no-useless-escape':0,
+    'no-console': 0,
+    'no-unused-vars': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
