@@ -44,3 +44,15 @@
         </md-list>
     </div>
 </template>
+<script>
+    export default {
+        data(){
+            return {}
+        },
+        beforeRouteEnter(to,from,next){
+            next(vm =>{
+                vm.$store.commit('CHANGE_TYPE',1)
+            })
+        }
+    }
+</script>

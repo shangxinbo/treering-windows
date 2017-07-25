@@ -5,20 +5,37 @@ import layout from './components/layout.vue'
 import todo from './components/todos/index.vue'
 import add from './components/todos/add.vue'
 import register from './components/account/register.vue'
+import login from './components/account/login.vue'
 
 Vue.use(Router)
 
 let mRouter = new Router({
     routes: [
-        //{ path: '/', name: 'todo', component: todo }
-        //{ path: '/', name: 'add', component: add }
-        // {
-        //     path: '/',
-        //     component: layout,
-        //     children:[]
-        // },
-        { path: '/', name: 'register', component: register }
+        { path: '/login', name: 'login', component: login },
+        { path: '/register', name: 'register', component: register },
+        {
+            path: '/',
+            component: layout,
+            children: [
+                { path: '/todo/list', name: 'todo', component: todo },
+                { path: '/todo/add', name: 'add', component: add },
+            ]
+        },
     ]
 })
+
+
+mRouter.beforeEach((to, from, next) => {
+    const path = to.path
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (!user && path != '/login' && path != '/register') {
+        next({ path: '/login' })
+    } else if (path == '/') {
+        next({ path: '/todo/list' })
+    } else {
+        next()
+    }
+})
+
 
 export default mRouter

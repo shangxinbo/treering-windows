@@ -5,7 +5,7 @@
             <md-input v-model="text" :required="true"></md-input>
         </md-input-container>
         <md-layout md-align="center">
-            <md-button class="md-raised md-primary" :disabled="!text" @click="submit">提交</md-button>
+            <md-button style="width:80%" class="md-raised md-primary" :disabled="!text" @click="submit">提交</md-button>
         </md-layout>
     </div>
 </template>
@@ -14,6 +14,11 @@
         data() {
             return {
                 text: ''
+            }
+        },
+        computed:{
+            type(){
+                return this.$store.state.type
             }
         },
         methods: {
