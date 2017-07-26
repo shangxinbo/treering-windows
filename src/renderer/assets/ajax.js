@@ -1,5 +1,29 @@
 import axios from 'axios'
+import tough from 'tough-cookie'
+
 axios.defaults.adapter = require('axios/lib/adapters/http')
+axios.defaults.withCredentials = true
+
+let cookiejar = new tough.CookieJar()
+let Cookie = tough.Cookie
+
+axios.interceptors.request.use(function (config) {
+    cookiejar.getCookies(config.url, function (err, cookies) {
+        config.headers.cookie = cookies.join('; ')
+    })
+    return config
+})
+
+axios.interceptors.response.use(function (response) {
+    if (response.headers['set-cookie'] instanceof Array) {
+        response.headers['set-cookie'].forEach(function (c) {
+            cookiejar.setCookie(Cookie.parse(c), response.config.url, function (err, cookie) { })
+        })
+    }
+    return response
+})
+
+
 export default {
     install(Vue, options) {
         Vue.prototype.$ajax = function (options) {
@@ -13,14 +37,6 @@ export default {
                     let body = res.data
                     if (body.code == 404 || body.code == 403 || body.code == 500) {
                         _this.$router.replace('/error?code=' + body.code)
-                    } else if (body.code == 10001) {
-                        localStorage.removeItem('user')
-                        sessionStorage.clear()
-                        window.location.reload()
-                    } else if (body.code == 10003) {
-                        _this.$router.replace('/initpass')
-                    } else if (res.data.code == 10005) {
-                        _this.$router.replace('/error?code=403')
                     } else {
                         if (options.success) {
                             options.success(body)
