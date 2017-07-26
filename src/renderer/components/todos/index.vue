@@ -1,7 +1,7 @@
 <template>
-    <ul class="md-list md-theme-default" @drop="drop($event)" @dragover="allowDrop($event)">
+    <ul class="md-list md-theme-default" @drop="drop($event,-1)" @dragover="allowDrop($event)">
         <li class="md-list-item" draggable="true" v-for="(item,index) in list" :key="index" :class="{'md-list-item-expand':typeof(item)!='string'}"
-            @dragstart="drag(index,$event)" @click="toggle(item,$event)">
+            @dragstart="drag(index,-1,$event)" @click="toggle(item,$event)">
             <div class="md-list-item-container" v-if="typeof(item)=='string'">
                 <span>{{item}}</span>
             </div>
@@ -17,8 +17,8 @@
                 </button>
                 <div class="md-list-expand" style="margin-bottom: -192px;">
                     <div class="md-list-expand-container">
-                        <ul class="md-list md-theme-default" v-for="child in item.children">
-                            <li class="md-list-item md-inset">
+                        <ul class="md-list md-theme-default" @drop.stop="drop($event,index)" @dragover="allowDrop($event)">
+                            <li class="md-list-item md-inset" draggable="true" v-for="(child,code) in item.children" @dragstart.stop="drag(code,index,$event)">
                                 <div class="md-list-item-container">{{child}}</div>
                             </li>
                         </ul>
@@ -57,8 +57,8 @@
             })
         },
         methods: {
-            drag(index, evt) {
-                evt.dataTransfer.setData("prev", index)
+            drag(index, father, evt) {
+                evt.dataTransfer.setData("prev", father + '~' + index)
             },
             toggle(item, evt) {
                 if (typeof item != 'string') {
@@ -70,14 +70,48 @@
                     }
                 }
             },
-            drop(evt) {
-                let prev = evt.dataTransfer.getData("prev")
-                let next = Array.prototype.indexOf.call(this.$el.childNodes, evt.target.parentNode)
-                let arr = this.list.slice(0)
-                let tmp = arr[prev]
-                arr[prev] = arr[next]
-                arr[next] = tmp
-                this.list = arr
+            getParentLi(target) {
+                if (target.parentNode.tagName == 'LI') {
+                    return target.parentNode
+                } else {
+                    return this.getParentLi(target.parentNode)
+                }
+            },
+            drop(evt, index) {
+                let prev = evt.dataTransfer.getData("prev").split('~')
+                if (prev[0] < 0) {
+                    let next = Array.prototype.indexOf.call(this.$el.childNodes, this.getParentLi(evt.target))
+                    let arr = this.list.slice(0)
+                    let tmp = arr[prev[1]]
+                    arr[prev[1]] = arr[next]
+                    arr[next] = tmp
+                    this.list = arr
+                } else {
+                    if (prev[0] == index) {
+                        let next = Array.prototype.indexOf.call(this.$el.childNodes[index].querySelector('ul').childNodes, this.getParentLi(evt.target))
+                        let arr = this.list.slice(0)
+                        let tmp = arr[prev[0]].children[prev[1]]
+                        arr[prev[0]].children[prev[1]] = arr[prev[0]].children[next]
+                        arr[prev[0]].children[next] = tmp
+                        this.list = arr
+                    }
+                }
+
+                // this.$ajax({
+                //     url: 'http://localhost:3000/todos/saveChange',
+                //     data: {
+                //         type: 0,
+                //         arr: arr
+                //     },
+                //     success: data => {
+                //         if (data.code && data.code == 200) {
+                //             this.list = arr
+                //         }else{
+                //             //TODO TOAST
+                //         }
+                //     }
+                // })
+
             },
             allowDrop(evt) {
                 evt.preventDefault()
