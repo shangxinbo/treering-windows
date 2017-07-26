@@ -29,8 +29,12 @@
                         text: this.text
                     },
                     success: data => {
-                        console.log(1234)
-                        console.log(data)
+                        if(data.code&&data.code==200){
+                            this.$router.replace('/todo/list')
+                        }else{
+                            //TODO
+                            console.log(data.message)
+                        }
                     }
                 })
             }
