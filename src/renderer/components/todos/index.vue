@@ -3,10 +3,15 @@
         <li class="md-list-item" draggable="true" v-for="(item,index) in list" :key="index" :class="{'md-list-item-expand':typeof(item)!='string'}"
             @dragstart="drag(index,-1,$event)" @click="toggle(item,$event)">
             <div class="md-list-item-container" v-if="typeof(item)=='string'">
+                <md-icon>add</md-icon>
                 <span>{{item}}</span>
+                <md-button class="md-icon-button" @click="del(index,-1)">
+                    <md-icon>delete sweep</md-icon>
+                </md-button>
             </div>
             <template v-else>
                 <div class="md-list-item-container md-button">
+                    <md-icon>add</md-icon>
                     <span>{{item.father}}</span>
                     <i aria-hidden="true" class="md-icon md-list-expand-indicator md-theme-default material-icons">keyboard_arrow_down</i>
                 </div>
@@ -17,14 +22,20 @@
                 </button>
                 <div class="md-list-expand" style="margin-bottom: -192px;">
                     <div class="md-list-expand-container">
-                        <ul class="md-list md-theme-default" @drop.stop="drop($event,index)" @dragover="allowDrop($event)">
+                        <ul class="md-list md-theme-default" @click.stop @drop.stop="drop($event,index)" @dragover="allowDrop($event)">
                             <li class="md-list-item md-inset" draggable="true" v-for="(child,code) in item.children" @dragstart.stop="drag(code,index,$event)">
-                                <div class="md-list-item-container">{{child}}</div>
+                                <div class="md-list-item-container">
+                                    <span>{{child}}</span>
+                                    <md-button class="md-icon-button" @click="del(code,index)">
+                                        <md-icon>delete sweep</md-icon>
+                                    </md-button>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </template>
+
         </li>
     </ul>
 </template>
@@ -37,19 +48,7 @@
             }
         },
         created() {
-            this.$ajax({
-                url: 'http://localhost:3000/todos/list',
-                data: {
-                    type: 0
-                },
-                success: data => {
-                    if (data.code && data.code == 200) {
-                        this.list = data.data
-                    } else {
-                        this.list = []
-                    }
-                }
-            })
+            this.init()
         },
         beforeRouteEnter(to, from, next) {
             next(vm => {
@@ -57,6 +56,21 @@
             })
         },
         methods: {
+            init() {
+                this.$ajax({
+                    url: 'http://localhost:3000/todos/list',
+                    data: {
+                        type: 0
+                    },
+                    success: data => {
+                        if (data.code && data.code == 200) {
+                            this.list = data.data
+                        } else {
+                            this.list = []
+                        }
+                    }
+                })
+            },
             drag(index, father, evt) {
                 evt.dataTransfer.setData("prev", father + '~' + index)
             },
@@ -71,6 +85,7 @@
                 }
             },
             getParentLi(target) {
+                if (!target.parentNode) return target
                 if (target.parentNode.tagName == 'LI') {
                     return target.parentNode
                 } else {
@@ -97,24 +112,36 @@
                     }
                 }
 
-                // this.$ajax({
-                //     url: 'http://localhost:3000/todos/saveChange',
-                //     data: {
-                //         type: 0,
-                //         arr: arr
-                //     },
-                //     success: data => {
-                //         if (data.code && data.code == 200) {
-                //             this.list = arr
-                //         }else{
-                //             //TODO TOAST
-                //         }
-                //     }
-                // })
+                this.save()
 
             },
             allowDrop(evt) {
                 evt.preventDefault()
+            },
+            del(index, father) {
+                let str = index
+                if (father < 0) {
+                    this.list.splice(index, 1)
+                } else {
+                    this.list[father].children.splice(index, 1)
+                }
+                this.save()
+            },
+            save() {
+                this.$ajax({
+                    url: 'http://localhost:3000/todos/saveChange',
+                    data: {
+                        type: 0,
+                        arr: this.list
+                    },
+                    success: data => {
+                        if (data.code && data.code == 200) {
+                            //TODO 更新成功
+                        } else {
+                            //TODO TOAST
+                        }
+                    }
+                })
             }
         }
     }
