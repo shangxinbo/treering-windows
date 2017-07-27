@@ -6,7 +6,7 @@
         <md-dialog-confirm :md-title="confirm.msg" :md-content="confirm.html" md-ok-text="是" md-cancel-text="否" @close="confirmClose"
             ref="confirm">
         </md-dialog-confirm>
-        <md-dialog-prompt :md-title="prompt.title" md-ok-text="确定" md-cancel-text="取消" @close="promptClose"
+        <md-dialog-prompt :md-title="prompt.title" md-input-maxlength="50" md-ok-text="确定" md-cancel-text="取消" @close="promptClose"
             v-model="prompt.value" ref="prompt">
         </md-dialog-prompt>
     </div>
@@ -70,7 +70,7 @@
                 if (type && this.confirm.callback) this.confirm.callback()
             },
             promptClose(type) {
-                if (type && this.prompt.callback) this.prompt.callback(this.prompt.value)
+                if (type=='ok' && this.prompt.callback) this.prompt.callback(this.prompt.value)
             }
         }
     }

@@ -3,7 +3,7 @@
         <li class="md-list-item" draggable="true" v-for="(item,index) in list" :key="index" :class="{'md-list-item-expand':typeof(item)!='string'}"
             @dragstart="drag(index,-1,$event)" @click="toggle(item,$event)">
             <div class="md-list-item-container" v-if="typeof(item)=='string'">
-                <md-icon>add</md-icon>
+                <i aria-hidden="true" class="md-icon md-theme-default material-icons" @click.stop="add(index)">add</i>
                 <span>{{item}}</span>
                 <md-button class="md-icon-button" @click="del(index,-1)">
                     <md-icon>delete sweep</md-icon>
@@ -11,15 +11,10 @@
             </div>
             <template v-else>
                 <div class="md-list-item-container md-button">
-                    <md-icon>add</md-icon>
+                    <i aria-hidden="true" class="md-icon md-theme-default material-icons" @click.stop="add(index)">add</i>
                     <span>{{item.father}}</span>
                     <i aria-hidden="true" class="md-icon md-list-expand-indicator md-theme-default material-icons">keyboard_arrow_down</i>
                 </div>
-                <button type="button" class="md-button md-button-ghost md-theme-default">
-                    <div class="md-ink-ripple">
-                        <div class="md-ripple" style="width: 606px; height: 606px;"></div>
-                    </div>
-                </button>
                 <div class="md-list-expand" style="margin-bottom: -192px;">
                     <div class="md-list-expand-container">
                         <ul class="md-list md-theme-default" @click.stop @drop.stop="drop($event,index)" @dragover="allowDrop($event)">
@@ -54,8 +49,8 @@
                 vm.$store.commit('CHANGE_TYPE', 0)
             })
         },
-        watch:{
-            $route(){
+        watch: {
+            $route() {
                 this.init()
             }
         },
@@ -121,6 +116,23 @@
             },
             allowDrop(evt) {
                 evt.preventDefault()
+            },
+            add(index) {
+                this.$prompt('添加子任务', value => {
+                    if (value) {
+                        let v = this.list[index]
+                        if (typeof v == 'string') {
+                            this.list[index] = {
+                                father: v,
+                                children: [value]
+                            }
+                        } else {
+                            this.list[index].children.push(value)
+                        }
+
+                        this.save()
+                    }
+                })
             },
             del(index, father) {
                 let str = index
