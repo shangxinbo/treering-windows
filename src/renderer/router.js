@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 import layout from './components/layout.vue'
 import todo from './components/todos/index.vue'
-import add from './components/todos/add.vue'
 import register from './components/account/register.vue'
 import login from './components/account/login.vue'
 
@@ -18,7 +17,6 @@ let mRouter = new Router({
             component: layout,
             children: [
                 { path: '/todo/list', name: 'todo', component: todo },
-                { path: '/todo/add', name: 'add', component: add },
             ]
         },
     ]

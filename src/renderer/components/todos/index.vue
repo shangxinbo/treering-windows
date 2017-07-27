@@ -51,8 +51,13 @@
         },
         beforeRouteEnter(to, from, next) {
             next(vm => {
-                vm.$store.commit('CHANGE_TYPE', 1)
+                vm.$store.commit('CHANGE_TYPE', 0)
             })
+        },
+        watch:{
+            $route(){
+                this.init()
+            }
         },
         methods: {
             init() {

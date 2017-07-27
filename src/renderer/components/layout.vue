@@ -2,8 +2,9 @@
     .md-title {
         flex: 10;
     }
-    a li div{
-        color:black
+
+    a li div {
+        color: black
     }
 </style>
 <template>
@@ -16,7 +17,7 @@
 
                 <h2 class="md-title">My App</h2>
 
-                <md-button class="md-icon-button" @click="redirect('/todo/add')">
+                <md-button class="md-icon-button" @click="add">
                     <md-icon>add</md-icon>
                 </md-button>
             </md-toolbar>
@@ -39,6 +40,11 @@
 </template>
 <script>
     export default {
+        computed:{
+            type(){
+                return this.$store.state.type
+            }
+        },
         methods: {
             toggleLeftSidenav() {
                 this.$refs.leftSidenav.toggle()
@@ -46,6 +52,28 @@
             redirect(str){
                 this.$router.push(str)
                 this.$refs.leftSidenav.close()
+            },
+            add() {
+                this.$prompt('添加新的任务', value => {
+                    this.$ajax({
+                        url: 'http://localhost:3000/todos/create',
+                        data: {
+                            text: value,
+                            type: this.type
+                        },
+                        success: data => {
+                            if(data.code&&data.code==200){
+                                this.$router.replace({
+                                    query:{
+                                        t:new Date()
+                                    }
+                                })
+                            }else{
+                                this.$alert(data.message)
+                            }
+                        }
+                    })
+                })
             }
         }
     }

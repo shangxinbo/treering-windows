@@ -3,8 +3,12 @@
         <router-view></router-view>
         <md-dialog-alert :md-content="alert.msg" md-ok-text="确定" @close="alertSure" ref="alert">
         </md-dialog-alert>
-        <md-dialog-confirm :md-title="confirm.msg" :md-content="confirm.html" md-ok-text="是" md-cancel-text="否" @close="confirmClose" ref="confirm">
+        <md-dialog-confirm :md-title="confirm.msg" :md-content="confirm.html" md-ok-text="是" md-cancel-text="否" @close="confirmClose"
+            ref="confirm">
         </md-dialog-confirm>
+        <md-dialog-prompt :md-title="prompt.title" md-ok-text="确定" md-cancel-text="取消" @close="promptClose"
+            v-model="prompt.value" ref="prompt">
+        </md-dialog-prompt>
     </div>
 </template>
 <script>
@@ -20,6 +24,11 @@
                     msg: 'confirm message',
                     html: 'confirm html',
                     callback: ''
+                },
+                prompt:{
+                    title:'',
+                    value:'',
+                    callback:''
                 }
             }
         },
@@ -43,6 +52,15 @@
                     this.confirm.callback = ''
                 }
             }
+            Vue.prototype.$prompt = (title, callback) => {
+                this.prompt.title = title
+                this.$refs.prompt.open()
+                if (callback) {
+                    this.prompt.callback = callback
+                } else {
+                    this.prompt.callback = ''
+                }
+            }
         },
         methods: {
             alertSure() {
@@ -50,6 +68,9 @@
             },
             confirmClose(type) {
                 if (type && this.confirm.callback) this.confirm.callback()
+            },
+            promptClose(type) {
+                if (type && this.prompt.callback) this.prompt.callback(this.prompt.value)
             }
         }
     }
