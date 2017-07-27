@@ -54,6 +54,7 @@
             }
             Vue.prototype.$prompt = (title, callback) => {
                 this.prompt.title = title
+                this.prompt.value = ''
                 this.$refs.prompt.open()
                 if (callback) {
                     this.prompt.callback = callback

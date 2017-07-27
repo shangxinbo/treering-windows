@@ -1,5 +1,5 @@
 <template>
-    <ul class="md-list md-theme-default" @drop="drop($event,-1)" @dragover="allowDrop($event)">
+    <ul class="md-list md-theme-default" @drop="drop($event,-1)" @dragover="allowDrop($event)" >
         <li class="md-list-item" draggable="true" v-for="(item,index) in list" :key="index" :class="{'md-list-item-expand':typeof(item)!='string'}"
             @dragstart="drag(index,-1,$event)" @click="toggle(item,$event)">
             <div class="md-list-item-container" v-if="typeof(item)=='string'">
@@ -31,6 +31,12 @@
                 </div>
             </template>
         </li>
+        <md-layout v-if="list.length<=0" md-column style="align-items: center;justify-content: center;min-height:500px;">
+            <md-button md-flex="1" disabled>
+                <i style="color:#b9b9b9" class="md-icon md-size-4x md-primary material-icons">folder open</i>
+            </md-button>
+            <div md-flex="1" style="text-align:center;color:#565656">暂时没有，请添加</div>
+        </md-layout>
     </ul>
 </template>
 <script>
@@ -39,7 +45,7 @@
             return {
                 list: [],
                 timer: '',
-                type:0
+                type: 0
             }
         },
         created() {
@@ -52,12 +58,12 @@
         },
         methods: {
             init() {
-                this.type = this.$route.query.type?this.$route.query.type:0
+                this.type = this.$route.query.type ? this.$route.query.type : 0
                 this.$store.commit('CHANGE_TYPE', this.type)
                 this.$ajax({
                     url: 'http://localhost:3000/todos/list',
                     data: {
-                        type: this.type 
+                        type: this.type
                     },
                     success: data => {
                         if (data.code && data.code == 200) {
@@ -147,7 +153,6 @@
                 this.save()
             },
             save() {
-                console.log(this.type,this.list)
                 this.$ajax({
                     url: 'http://localhost:3000/todos/saveChange',
                     data: {

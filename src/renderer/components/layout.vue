@@ -66,11 +66,8 @@
                         },
                         success: data => {
                             if(data.code&&data.code==200){
-                                this.$router.replace({
-                                    query:{
-                                        t:new Date()
-                                    }
-                                })
+                                let query = Object.assign({},this.$route.query,{t:new Date()})
+                                this.$router.replace({query})
                             }else{
                                 this.$alert(data.message)
                             }
