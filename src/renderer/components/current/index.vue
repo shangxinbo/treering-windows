@@ -6,8 +6,8 @@
                     <div class="md-title">{{text}}</div>
                 </md-card-header>
                 <md-card-actions>
-                    <md-button @click="fail">放弃</md-button>
-                    <md-button @click="done">完成</md-button>
+                    <md-button @click="done(-1)">放弃</md-button>
+                    <md-button @click="done(1)">完成</md-button>
                 </md-card-actions>
             </md-card>
         </md-layout>
@@ -38,19 +38,13 @@
                     }
                 })
             },
-            fail() {
+            done(status) {
                 this.$ajax({
-                    url: 'http://localhost:3000/history/fail',
-                    success: data => {
-                        if (data.code && data.code == 200) {
-                            this.init()
-                        }
-                    }
-                })
-            },
-            done() {
-                this.$ajax({
-                    url: 'http://localhost:3000/history/success',
+                    url: 'http://localhost:3000/history/add',
+                    data:{
+                        text:this.text,
+                        status:status
+                    },
                     success: data => {
                         if (data.code && data.code == 200) {
                             this.init()
