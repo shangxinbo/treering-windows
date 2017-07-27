@@ -38,16 +38,12 @@
         data() {
             return {
                 list: [],
-                timer: ''
+                timer: '',
+                type:0
             }
         },
         created() {
             this.init()
-        },
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-                vm.$store.commit('CHANGE_TYPE', 0)
-            })
         },
         watch: {
             $route() {
@@ -56,10 +52,12 @@
         },
         methods: {
             init() {
+                this.type = this.$route.query.type?this.$route.query.type:0
+                this.$store.commit('CHANGE_TYPE', this.type)
                 this.$ajax({
                     url: 'http://localhost:3000/todos/list',
                     data: {
-                        type: 0
+                        type: this.type 
                     },
                     success: data => {
                         if (data.code && data.code == 200) {
@@ -139,22 +137,26 @@
                 if (father < 0) {
                     this.list.splice(index, 1)
                 } else {
-                    this.list[father].children.splice(index, 1)
+                    if (this.list[father].children.length > 1) {
+                        this.list[father].children.splice(index, 1)
+                    } else {
+                        this.list.splice(father, 1)
+                    }
+
                 }
                 this.save()
             },
             save() {
+                console.log(this.type,this.list)
                 this.$ajax({
                     url: 'http://localhost:3000/todos/saveChange',
                     data: {
-                        type: 0,
+                        type: this.type,
                         arr: this.list
                     },
                     success: data => {
-                        if (data.code && data.code == 200) {
-                            //TODO 更新成功
-                        } else {
-                            //TODO TOAST
+                        if (!data.code || data.code != 200) {
+                            this.$alert(data.message)
                         }
                     }
                 })

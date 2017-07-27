@@ -29,8 +29,8 @@
                     </div>
                 </md-toolbar>
                 <md-list>
-                    <md-list-item @click="redirect('/todo/list')">代办事项</md-list-item>
-                    <md-list-item>重要事项</md-list-item>
+                    <md-list-item @click="redirect('/todo/list',{type:0})">代办事项</md-list-item>
+                    <md-list-item @click="redirect('/todo/list',{type:1})">重要事项</md-list-item>
                     <md-list-item>历史纪录</md-list-item>
                     <md-list-item>定时提醒</md-list-item>
                 </md-list>
@@ -49,8 +49,11 @@
             toggleLeftSidenav() {
                 this.$refs.leftSidenav.toggle()
             },
-            redirect(str){
-                this.$router.push(str)
+            redirect(str,query){
+                this.$router.push({
+                    path:str,
+                    query:query
+                })
                 this.$refs.leftSidenav.close()
             },
             add() {
