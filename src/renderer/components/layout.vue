@@ -34,6 +34,7 @@
                     <md-list-item>历史纪录</md-list-item>
                     <md-list-item>定时提醒</md-list-item>
                 </md-list>
+                <router-link tag="md-button" to="/current" class="md-raised md-primary">去完成任务</router-link>
             </md-sidenav>
         </div>
     </div>
