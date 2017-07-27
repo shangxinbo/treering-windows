@@ -11,6 +11,7 @@
                 </md-card-actions>
             </md-card>
         </md-layout>
+        <router-link tag="md-button" to="/todo/list" class="md-fab md-fab-bottom-right"><md-icon>format_list_bulleted</md-icon></router-link>
     </md-layout>
 </template>
 <script>
@@ -34,6 +35,9 @@
                     success: data => {
                         if (data.code && data.code == 200) {
                             this.text = data.data
+                        } else if (data.code && data.code == 303) {
+                            //TODO 没有了
+                            console.log('meiyoule')
                         }
                     }
                 })
@@ -41,9 +45,9 @@
             done(status) {
                 this.$ajax({
                     url: 'http://localhost:3000/history/add',
-                    data:{
-                        text:this.text,
-                        status:status
+                    data: {
+                        text: this.text,
+                        status: status
                     },
                     success: data => {
                         if (data.code && data.code == 200) {
