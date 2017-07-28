@@ -1,7 +1,7 @@
 
 
-const PRE = process.env.NODE_ENV == 'production' ? 'http://47.93.188.36:3000' : 'http://localhost:3000'
 
+const PRE = process.env.NODE_ENV == 'development' ? 'http://localhost:3000' : 'http://47.93.188.36:3000'
 export default {
     install(Vue, options) {
         Vue.prototype.$api = {

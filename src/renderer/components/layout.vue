@@ -70,7 +70,7 @@
                                 let query = Object.assign({},this.$route.query,{t:new Date()})
                                 this.$router.replace({query})
                             }else{
-                                this.$alert(data.message)
+                                this.$alert(data.message||data)
                             }
                         }
                     })
