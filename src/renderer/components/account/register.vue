@@ -80,7 +80,7 @@
                 }
 
                 this.$ajax({
-                    url: 'http://localhost:3000/register',
+                    url: this.$api.register,
                     data: {
                         name: this.name,
                         password: this.pass1

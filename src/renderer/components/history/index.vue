@@ -50,7 +50,7 @@
         methods: {
             init() {
                 this.$ajax({
-                    url: 'http://localhost:3000/history/list',
+                    url: this.$api.history_list,
                     success: data => {
                         if (data.code && data.code == 200) {
                             this.list = data.data

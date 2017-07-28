@@ -30,7 +30,7 @@
         methods: {
             init() {
                 this.$ajax({
-                    url: 'http://localhost:3000/current',
+                    url: this.$api.current,
                     data: {},
                     success: data => {
                         if (data.code && data.code == 200) {
@@ -44,7 +44,7 @@
             },
             done(status) {
                 this.$ajax({
-                    url: 'http://localhost:3000/history/add',
+                    url: this.$api.history_add,
                     data: {
                         text: this.text,
                         status: status

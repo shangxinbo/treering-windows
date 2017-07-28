@@ -61,7 +61,7 @@
                 this.type = this.$route.query.type ? this.$route.query.type : 0
                 this.$store.commit('CHANGE_TYPE', this.type)
                 this.$ajax({
-                    url: 'http://localhost:3000/todos/list',
+                    url: this.$api.todos_list,
                     data: {
                         type: this.type
                     },
@@ -154,7 +154,7 @@
             },
             save() {
                 this.$ajax({
-                    url: 'http://localhost:3000/todos/saveChange',
+                    url: this.$api.todos_save,
                     data: {
                         type: this.type,
                         arr: this.list

@@ -9,7 +9,6 @@
         background: url('~@/assets/logo.png') center center no-repeat;
         min-height: 10rem;
     }
-
 </style>
 <template>
     <md-layout md-align="center" md-vertical-align="center" class="warp">
@@ -51,16 +50,15 @@
         methods: {
             submit() {
                 if (!this.name || !this.pass) return false
-
                 this.$ajax({
-                    url: 'http://localhost:3000/login',
+                    url: this.$api.login,
                     data: {
                         name: this.name,
                         password: this.pass
                     },
                     success: data => {
                         if (data.code && data.code == 200) {
-                            localStorage.setItem('user',JSON.stringify(data.data))
+                            localStorage.setItem('user', JSON.stringify(data.data))
                             this.$router.replace('/todo/list')
                         } else {
                             //TODO TOAST

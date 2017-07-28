@@ -60,7 +60,7 @@
             add() {
                 this.$prompt('添加新的任务', value => {
                     this.$ajax({
-                        url: 'http://localhost:3000/todos/create',
+                        url: this.$api.todos_create,
                         data: {
                             text: value,
                             type: this.type

@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import Ajax from './assets/ajax'
+import API from './api'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 
@@ -11,6 +12,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueMaterial)
 Vue.use(Ajax)
+Vue.use(API)
 
 Vue.material.registerTheme('default', {
     primary: 'blue',
