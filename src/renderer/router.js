@@ -7,6 +7,7 @@ import register from './components/account/register.vue'
 import login from './components/account/login.vue'
 import current from './components/current/index.vue'
 import history from './components/history/index.vue'
+import backup from './components/backup/index.vue'
 
 Vue.use(Router)
 
@@ -21,6 +22,7 @@ let mRouter = new Router({
             children: [
                 { path: '/todo/list', name: 'todo', component: todo },
                 { path: '/history', name: 'history', component: history },
+                { path: '/backup', name: 'backup', component: backup },
             ]
         },
     ]

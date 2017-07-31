@@ -5,7 +5,7 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 const state = {
-    type: 0,   //0 todo, 1 important
+    type: 0,   //0 todo, 1 important, 2 backup edit 3backup view
 }
 
 const mutations = {

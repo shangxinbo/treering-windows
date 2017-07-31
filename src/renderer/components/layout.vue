@@ -17,8 +17,14 @@
 
                 <h2 class="md-title">My App</h2>
 
-                <md-button class="md-icon-button" @click="add">
+                <md-button class="md-icon-button" v-if="type==0||type==1" @click="add">
                     <md-icon>add</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" v-if="type==3" @click="editBackup">
+                    <md-icon>edit</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" v-if="type==2" @click="saveBackup">
+                    <md-icon>save</md-icon>
                 </md-button>
             </md-toolbar>
             <router-view></router-view>
@@ -32,6 +38,7 @@
                     <md-list-item @click="redirect('/todo/list',{type:0})">代办事项</md-list-item>
                     <md-list-item @click="redirect('/todo/list',{type:1})">重要事项</md-list-item>
                     <md-list-item @click="redirect('/history')">历史纪录</md-list-item>
+                    <md-list-item @click="redirect('/backup')">备忘录</md-list-item>
                     <md-list-item>定时提醒</md-list-item>
                 </md-list>
                 <router-link tag="md-button" to="/current" class="md-raised md-primary">去完成任务</router-link>
@@ -75,6 +82,12 @@
                         }
                     })
                 })
+            },
+            saveBackup(){
+                this.$store.commit('CHANGE_TYPE', 3)
+            },
+            editBackup(){
+                this.$store.commit('CHANGE_TYPE', 2)
             }
         }
     }
