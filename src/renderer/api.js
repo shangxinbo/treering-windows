@@ -12,7 +12,10 @@ export default {
             history_list: PRE + '/history/list',
             todos_create: PRE + '/todos/create',
             todos_list: PRE + '/todos/list',
-            todos_save: PRE + '/todos/saveChange'
+            todos_save: PRE + '/todos/saveChange',
+            backup_view: PRE + '/memo/view',
+            backup_save: PRE + '/memo/save',
+            verifypass:PRE + '/verifypass'
         }
     }
 }
