@@ -14,11 +14,36 @@
         width: 100%;
         min-height: 500px;
     }
+
+    .passframe {
+        align-items: center;
+        justify-content: center;
+        min-height: 600px;
+    }
+
+    .whiteframe {
+        width: 300px;
+        height: 150px;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 <template>
     <div class="markdown-body">
         <div v-html="contentHtml" v-show="type==3&&verify" style="padding:10px;"></div>
         <textarea v-model="content" v-show="type==2&&verify" placeholder="请输入markdown格式的文字内容"></textarea>
+        <md-layout v-show="!verify" md-column class="passframe">
+            <md-whiteframe class="whiteframe" md-elevation="4">
+                <md-input-container style="width:80%;margin:20px auto;" :class="{'md-input-invalid':pass_error}">
+                    <label>请输入登录密码查看</label>
+                    <md-input v-model="password" type="password"></md-input>
+                    <span class="md-error">{{pass_error}}</span>
+                </md-input-container>
+                <md-layout md-align="center">
+                    <md-button class="md-raised md-primary" @click="verifyPass">查看</md-button>
+                </md-layout>
+            </md-whiteframe>
+        </md-layout>
     </div>
 </template>
 <script>
@@ -28,6 +53,8 @@
             return {
                 content: '',
                 verify: false,
+                password: '',
+                pass_error: ''
             }
         },
         computed: {
@@ -58,14 +85,11 @@
                 if (newVal) {
                     this.getData()
                     this.$store.commit('CHANGE_TYPE', 3)
-                } else {
-                    this.verifyDialog()
                 }
             }
         },
         created() {
             this.$store.commit('CHANGE_TYPE', 3)
-            this.verifyDialog()
             let timer
             document.addEventListener('visibilityChange', () => {
                 if (document.hidden) {
@@ -91,22 +115,22 @@
                     }
                 })
             },
-            verifyDialog() {
-                this.$prompt('请输入你的登录密码', value => {
-                    if (value) {
-                        this.$ajax({
-                            url: this.$api.verifypass,
-                            data: {
-                                password: value
-                            },
-                            success: data => {
-                                if (data.code && data.code == 200) {
-                                    this.verify = true
-                                }
+            verifyPass() {
+                if (this.password) {
+                    this.$ajax({
+                        url: this.$api.verifypass,
+                        data: {
+                            password: this.password
+                        },
+                        success: data => {
+                            if (data.code && data.code == 200) {
+                                this.verify = true
+                            } else {
+                                this.pass_error = data.message || data
                             }
-                        })
-                    }
-                })
+                        }
+                    })
+                }
             }
         }
     }

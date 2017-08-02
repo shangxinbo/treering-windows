@@ -37,7 +37,6 @@
                             this.text = data.data
                         } else if (data.code && data.code == 303) {
                             //TODO 没有了
-                            console.log('meiyoule')
                         }
                     }
                 })

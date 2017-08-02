@@ -87,7 +87,8 @@
                     },
                     success: data => {
                         if (data.code && data.code == 200) {
-                            console.log('登录成功')
+                            console.log('注册成功')
+                            //TODO 调到登录页
                         } else {
                             console.log(123)
                         }

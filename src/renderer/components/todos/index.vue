@@ -128,10 +128,10 @@
                     if (value) {
                         let v = this.list[index]
                         if (typeof v == 'string') {
-                            this.list[index] = {
+                            this.list.splice(index,1,{
                                 father: v,
                                 children: [value]
-                            }
+                            })
                         } else {
                             this.list[index].children.push(value)
                         }
