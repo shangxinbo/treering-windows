@@ -58,7 +58,7 @@
                     },
                     success: data => {
                         if (data.code && data.code == 200) {
-                            localStorage.setItem('user', JSON.stringify(data.data))
+                            sessionStorage.setItem('user', JSON.stringify(data.data))
                             this.$router.replace('/todo/list')
                         } else {
                             //TODO TOAST

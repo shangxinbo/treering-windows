@@ -27,7 +27,7 @@ let mRouter = new Router({
 
 mRouter.beforeEach((to, from, next) => {
     const path = to.path
-    const user = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(sessionStorage.getItem('user'))
     if (!user && path != '/login' && path != '/register') {
         next({ path: '/login' })
     } else if (path == '/') {

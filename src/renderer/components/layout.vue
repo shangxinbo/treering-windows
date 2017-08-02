@@ -15,7 +15,7 @@
                     <md-icon>menu</md-icon>
                 </md-button>
 
-                <h2 class="md-title">My App</h2>
+                <h2 class="md-title">Treering</h2>
 
                 <md-button class="md-icon-button" v-if="type==0||type==1" @click="add">
                     <md-icon>add</md-icon>
@@ -31,7 +31,7 @@
             <md-sidenav class="md-left" ref="leftSidenav">
                 <md-toolbar class="md-default">
                     <div class="md-toolbar-container">
-                        <h3 class="md-title">menu</h3>
+                        <h3 class="md-title">菜单</h3>
                     </div>
                 </md-toolbar>
                 <md-list>

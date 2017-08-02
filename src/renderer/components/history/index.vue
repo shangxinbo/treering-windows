@@ -1,6 +1,6 @@
 <template>
     <md-layout>
-        <md-table>
+        <md-table style="width:100%" v-if="list.length>0">
             <md-table-header>
                 <md-table-row>
                     <md-table-head>任务</md-table-head>
