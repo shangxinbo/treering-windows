@@ -17,17 +17,17 @@
 </style>
 <template>
     <div class="markdown-body">
-        <vue-markdown :source="content" :highlight="true" v-show="type==3&&verify" style="padding:10px;"></vue-markdown>
+        <div v-html="contentHtml" v-show="type==3&&verify" style="padding:10px;"></div>
         <textarea v-model="content" v-show="type==2&&verify" placeholder="请输入markdown格式的文字内容"></textarea>
     </div>
 </template>
 <script>
-    import VueMarkdown from 'vue-markdown'
+    import { markdown } from 'markdown'
     export default {
         data() {
             return {
                 content: '',
-                verify: false
+                verify: false,
             }
         },
         computed: {
@@ -35,7 +35,7 @@
                 return this.$store.state.type
             },
             contentHtml() {
-                return this.content
+                return markdown.toHTML(this.content)
             }
         },
         watch: {
@@ -108,9 +108,6 @@
                     }
                 })
             }
-        },
-        components: {
-            'vue-markdown': VueMarkdown
         }
     }
 

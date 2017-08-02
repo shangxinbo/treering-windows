@@ -1,30 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import layout from './components/layout.vue'
-import todo from './components/todos/index.vue'
-import register from './components/account/register.vue'
-import login from './components/account/login.vue'
-import current from './components/current/index.vue'
-import history from './components/history/index.vue'
-import backup from './components/backup/index.vue'
-
 Vue.use(Router)
 
 let mRouter = new Router({
     routes: [
-        { path: '/login', name: 'login', component: login },
-        { path: '/register', name: 'register', component: register },
-        { path: '/current', name: 'current', component: current },
+        { path: '/login', name: 'login', component: require('@/components/account/login') },
+        { path: '/register', name: 'register', component: require('@/components/account/register') },
+        { path: '/current', name: 'current', component: require('@/components/current/index') },
         {
             path: '/',
-            component: layout,
+            component: require('@/components/layout'),
             children: [
-                { path: '/todo/list', name: 'todo', component: todo },
-                { path: '/history', name: 'history', component: history },
-                { path: '/backup', name: 'backup', component: backup },
+                { path: '/todo/list', name: 'todo', component: require('@/components/todos/index') },
+                { path: '/history', name: 'history', component: require('@/components/history/index') },
+                { path: '/backup', name: 'backup', component: require('@/components/backup/index') },
             ]
         },
+        {
+            path: '*',
+            redirect: '/login'
+        }
     ]
 })
 
