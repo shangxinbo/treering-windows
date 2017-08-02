@@ -100,7 +100,7 @@
             drop(evt, index) {
                 let prev = evt.dataTransfer.getData("prev").split('~')
                 if (prev[0] < 0) {
-                    let next = Array.prototype.indexOf.call(this.$el.childNodes, this.getParentLi(evt.target))
+                    let next = Array.prototype.indexOf.call(this.$el.querySelector('ul').childNodes, this.getParentLi(evt.target))
                     let arr = this.list.slice(0)
                     let tmp = arr[prev[1]]
                     arr[prev[1]] = arr[next]
@@ -108,7 +108,7 @@
                     this.list = arr
                 } else {
                     if (prev[0] == index) {
-                        let next = Array.prototype.indexOf.call(this.$el.childNodes[index].querySelector('ul').childNodes, this.getParentLi(evt.target))
+                        let next = Array.prototype.indexOf.call(this.$el.querySelector('ul').childNodes[index].querySelector('ul').childNodes, this.getParentLi(evt.target))
                         let arr = this.list.slice(0)
                         let tmp = arr[prev[0]].children[prev[1]]
                         arr[prev[0]].children[prev[1]] = arr[prev[0]].children[next]
