@@ -42,6 +42,7 @@
                     <md-list-item>定时提醒</md-list-item>
                 </md-list>
                 <router-link tag="md-button" to="/current" class="md-raised md-primary">去完成任务</router-link>
+                <md-button class="md-raised md-primary" @click="quit">退出</md-button>
             </md-sidenav>
         </div>
     </div>
@@ -88,6 +89,10 @@
             },
             editBackup(){
                 this.$store.commit('CHANGE_TYPE', 2)
+            },
+            quit(){
+                sessionStorage.clear()
+                this.$router.replace('/login')
             }
         }
     }
