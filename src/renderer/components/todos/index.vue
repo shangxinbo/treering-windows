@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul v-if="list.length>0" class="md-list md-theme-default" @drop="drop($event,-1)" @dragover="allowDrop($event)" >
+        <ul v-if="list.length>0" class="md-list md-theme-default" @drop="drop($event,-1)" @dragover="allowDrop($event)">
             <li class="md-list-item" draggable="true" v-for="(item,index) in list" :key="index" :class="{'md-list-item-expand':typeof(item)!='string'}"
                 @dragstart="drag(index,-1,$event)" @click="toggle(item,$event)">
                 <div class="md-list-item-container" v-if="typeof(item)=='string'">
@@ -103,16 +103,16 @@
                     let next = Array.prototype.indexOf.call(this.$el.querySelector('ul').childNodes, this.getParentLi(evt.target))
                     let arr = this.list.slice(0)
                     let tmp = arr[prev[1]]
-                    arr.splice(prev[1],1)
-                    arr.splice(next,0,tmp)
+                    arr.splice(prev[1], 1)
+                    arr.splice(next, 0, tmp)
                     this.list = arr
                 } else {
                     if (prev[0] == index) {
                         let next = Array.prototype.indexOf.call(this.$el.querySelector('ul').childNodes[index].querySelector('ul').childNodes, this.getParentLi(evt.target))
                         let arr = this.list.slice(0)
                         let tmp = arr[prev[0]].children[prev[1]]
-                        arr[prev[0]].children.splice(prev[1],1)
-                        arr[prev[0]].children.splice(next,0,tmp)
+                        arr[prev[0]].children.splice(prev[1], 1)
+                        arr[prev[0]].children.splice(next, 0, tmp)
                         this.list = arr
                     }
                 }
@@ -128,7 +128,7 @@
                     if (value) {
                         let v = this.list[index]
                         if (typeof v == 'string') {
-                            this.list.splice(index,1,{
+                            this.list.splice(index, 1, {
                                 father: v,
                                 children: [value]
                             })
@@ -142,17 +142,20 @@
             },
             del(index, father) {
                 let str = index
-                if (father < 0) {
-                    this.list.splice(index, 1)
-                } else {
-                    if (this.list[father].children.length > 1) {
-                        this.list[father].children.splice(index, 1)
+                this.$alert('确定要删除该任务', () => {
+                    if (father < 0) {
+                        this.list.splice(index, 1)
                     } else {
-                        this.list.splice(father, 1)
-                    }
+                        if (this.list[father].children.length > 1) {
+                            this.list[father].children.splice(index, 1)
+                        } else {
+                            this.list.splice(father, 1)
+                        }
 
-                }
-                this.save()
+                    }
+                    this.save()
+                })
+
             },
             save() {
                 this.$ajax({
