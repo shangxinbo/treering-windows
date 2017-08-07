@@ -64,7 +64,7 @@
                 return this.$store.state.type
             },
             contentHtml() {
-                return markdown.toHTML(this.content)
+                return markdown.toHTML(this.content, 'Maruku')
             }
         },
         watch: {
