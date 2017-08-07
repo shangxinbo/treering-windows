@@ -42,6 +42,16 @@
     </div>
 </template>
 <script>
+    function reserveArr(arr) {
+        let a = arr.reverse()
+        a.forEach((item, key) => {
+            if (item instanceof Object) {
+                a[key].children = item.children.reverse()
+            }
+        })
+        return a
+    }
+
     export default {
         data() {
             return {
@@ -133,7 +143,7 @@
                                 children: [value]
                             })
                         } else {
-                            this.list[index].children.push(value)
+                            this.list[index].children.unshift(value)
                         }
 
                         this.save()

@@ -22,6 +22,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     height: 736,
     useContentSize: true,
+    show:false,
+    resizable: process.env.NODE_ENV !== 'development' ? false : true,
     width: 416
   })
 
@@ -43,6 +45,9 @@ function createWindow() {
   //   Menu.setApplicationMenu(menu)
   // }
 
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null
