@@ -20,26 +20,29 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    height: 736,
     useContentSize: true,
-    width: 1000
+    width: 416
   })
 
   mainWindow.loadURL(winURL)
 
-  var template = [
-    {
-      label: 'Edit',
-      role: 'toggledevtools'
-    },
-    {
-      label: 'reload',
-      role: 'reload'
-    }
-  ]
+  // if (process.env.NODE_ENV !== 'development') {
+  //   var template = [
+  //     {
+  //       label: 'Edit',
+  //       role: 'toggledevtools'
+  //     },
+  //     {
+  //       label: 'reload',
+  //       role: 'reload'
+  //     }
+  //   ]
 
-  var menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  //   var menu = Menu.buildFromTemplate(template)
+  //   Menu.setApplicationMenu(menu)
+  // }
+
 
   mainWindow.on('closed', () => {
     mainWindow = null
