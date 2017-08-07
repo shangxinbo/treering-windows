@@ -32,18 +32,20 @@
     <div class="markdown-body">
         <div v-html="contentHtml" v-show="type==3&&verify" style="padding:10px;"></div>
         <textarea v-model="content" v-show="type==2&&verify" placeholder="请输入markdown格式的文字内容"></textarea>
-        <md-layout v-show="!verify" md-column class="passframe">
-            <md-whiteframe class="whiteframe" md-elevation="4">
-                <md-input-container style="width:80%;margin:20px auto;" :class="{'md-input-invalid':pass_error}">
-                    <label>请输入登录密码查看</label>
-                    <md-input v-model="password" type="password"></md-input>
-                    <span class="md-error">{{pass_error}}</span>
-                </md-input-container>
-                <md-layout md-align="center">
-                    <md-button class="md-raised md-primary" @click="verifyPass">查看</md-button>
-                </md-layout>
-            </md-whiteframe>
-        </md-layout>
+        <div @keyup.enter="verifyPass">
+            <md-layout v-show="!verify" md-column class="passframe">
+                <md-whiteframe class="whiteframe" md-elevation="4">
+                    <md-input-container style="width:80%;margin:20px auto;" :class="{'md-input-invalid':pass_error}">
+                        <label>请输入登录密码查看</label>
+                        <md-input v-model="password" type="password"></md-input>
+                        <span class="md-error">{{pass_error}}</span>
+                    </md-input-container>
+                    <md-layout md-align="center">
+                        <md-button class="md-raised md-primary" @click="verifyPass">查看</md-button>
+                    </md-layout>
+                </md-whiteframe>
+            </md-layout>
+        </div>
     </div>
 </template>
 <script>

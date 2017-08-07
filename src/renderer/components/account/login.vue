@@ -11,30 +11,32 @@
     }
 </style>
 <template>
-    <md-layout md-align="center" md-vertical-align="center" class="warp">
-        <md-layout md-flex="80" md-column>
-            <md-layout md-gutter md-align="center">
-                <md-layout md-flex="50" class="logo">
+    <div style="width:100%;height:100%;" @keyup.enter="submit">
+        <md-layout md-align="center" md-vertical-align="center" class="warp">
+            <md-layout md-flex="80" md-column>
+                <md-layout md-gutter md-align="center">
+                    <md-layout md-flex="50" class="logo">
+                    </md-layout>
+                </md-layout>
+                <md-layout md-column md-gutter>
+                    <md-input-container>
+                        <label>用户名</label>
+                        <md-input v-model="name"></md-input>
+                    </md-input-container>
+                    <md-input-container md-has-password>
+                        <label>密码</label>
+                        <md-input type="password" v-model="pass"></md-input>
+                    </md-input-container>
+                </md-layout>
+                <md-layout>
+                    <router-link to="/register">还没有账号？立即注册</router-link>
+                </md-layout>
+                <md-layout md-align="center">
+                    <md-button style="width:80%;margin-top:20px;" class="md-raised md-primary" @click="submit">登录</md-button>
                 </md-layout>
             </md-layout>
-            <md-layout md-column md-gutter>
-                <md-input-container>
-                    <label>用户名</label>
-                    <md-input v-model="name"></md-input>
-                </md-input-container>
-                <md-input-container md-has-password>
-                    <label>密码</label>
-                    <md-input type="password" v-model="pass"></md-input>
-                </md-input-container>
-            </md-layout>
-            <md-layout>
-                <router-link to="/register">还没有账号？立即注册</router-link>
-            </md-layout>
-            <md-layout md-align="center">
-                <md-button style="width:80%;margin-top:20px;" class="md-raised md-primary" @click="submit">登录</md-button>
-            </md-layout>
         </md-layout>
-    </md-layout>
+    </div>
 </template>
 <script>
     export default {
