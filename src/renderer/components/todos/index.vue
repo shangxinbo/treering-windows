@@ -103,16 +103,16 @@
                     let next = Array.prototype.indexOf.call(this.$el.querySelector('ul').childNodes, this.getParentLi(evt.target))
                     let arr = this.list.slice(0)
                     let tmp = arr[prev[1]]
-                    arr[prev[1]] = arr[next]
-                    arr[next] = tmp
+                    arr.splice(prev[1],1)
+                    arr.splice(next,0,tmp)
                     this.list = arr
                 } else {
                     if (prev[0] == index) {
                         let next = Array.prototype.indexOf.call(this.$el.querySelector('ul').childNodes[index].querySelector('ul').childNodes, this.getParentLi(evt.target))
                         let arr = this.list.slice(0)
                         let tmp = arr[prev[0]].children[prev[1]]
-                        arr[prev[0]].children[prev[1]] = arr[prev[0]].children[next]
-                        arr[prev[0]].children[next] = tmp
+                        arr[prev[0]].children.splice(prev[1],1)
+                        arr[prev[0]].children.splice(next,0,tmp)
                         this.list = arr
                     }
                 }

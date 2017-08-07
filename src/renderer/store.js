@@ -10,7 +10,7 @@ const state = {
 
 const mutations = {
     // 显示遮罩层
-    CHANGE_TYPE(state,type) {
+    CHANGE_TYPE(state, type) {
         state.type = type
     }
 }
