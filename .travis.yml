@@ -7,7 +7,10 @@ matrix:
   include:
   - os: osx
   - os: linux
-
+deploy:
+  provider: releases
+  api_key:
+    secure: 366851632e1617ea0f8e3adda217729fc627bd60
 script:
 - npm run build
 branches:
