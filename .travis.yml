@@ -7,8 +7,7 @@ matrix:
   include:
   - os: osx
   - os: linux
-before_install:
-  - "curl -L https://raw.githubusercontent.com/arunoda/travis-ci-meteor-packages/master/configure.sh | /bin/sh"
+
 script:
 - npm run build
 branches:
