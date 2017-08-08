@@ -1,9 +1,16 @@
 # Commented sections below can be used to run tests on the CI server
 # https://simulatedgreg.gitbooks.io/electron-vue/content/en/testing.html#on-the-subject-of-ci-testing
+
 matrix:
   include:
   - os: osx
   - os: linux
+
+install:
+#- export DISPLAY=':99.0'
+#- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+- nvm install 8
+- npm install
 script:
 #- xvfb-maybe node_modules/.bin/karma start test/unit/karma.conf.js
 #- yarn run pack && xvfb-maybe node_modules/.bin/mocha test/e2e
