@@ -1,12 +1,12 @@
 # Commented sections below can be used to run tests on the CI server
 # https://simulatedgreg.gitbooks.io/electron-vue/content/en/testing.html#on-the-subject-of-ci-testing
-
+language: node_js
+node_js:
+  - "8"
 matrix:
   include:
   - os: osx
   - os: linux
-before_install:
-- nvm install 8
 script:
 - npm run build
 branches:
