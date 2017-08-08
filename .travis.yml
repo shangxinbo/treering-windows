@@ -6,6 +6,9 @@ node_js: "8"
 os:
   - linux
 
+script:
+  - npm -v
+
 before_deploy:
   - npm run build
 
