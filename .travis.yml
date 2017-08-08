@@ -1,5 +1,5 @@
 dist: trusty
-sudo: false
+sudo: required
 
 language: node_js
 node_js: "8"
@@ -41,3 +41,12 @@ before_cache:
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
+
+deploy:
+  provider: releases
+  api-key: "c589cebd96f6d4a6ed5c6fc350ffe59b78ddfda9"
+  file_glob: true
+  file: $TRAVIS_BUILD_DIR/*
+  skip_cleanup: true
+  on:
+    tags: true
