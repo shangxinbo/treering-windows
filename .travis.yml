@@ -14,7 +14,8 @@ deploy:
   api-key: "c589cebd96f6d4a6ed5c6fc350ffe59b78ddfda9"
   file_glob: true
   file: 
-    - "build/*.AppImage"
+    - "LICENSE"
   skip_cleanup: false
   on:
+    repo: shangxinbo/treering-windows
     tags: true
