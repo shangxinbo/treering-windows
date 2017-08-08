@@ -26,14 +26,9 @@ addons:
 
 before_install:
   - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v2.2.0/git-lfs-$([ "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-2.2.0.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
-  - curl -L https://yarnpkg.com/latest.tar.gz | tar xvz && mv dist $HOME/.yarn
-  - export PATH="$HOME/.yarn/bin:$PATH"
-
-install:
-- yarn
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn run build; fi
+  - npm run build
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -46,7 +41,7 @@ deploy:
   provider: releases
   api-key: "c589cebd96f6d4a6ed5c6fc350ffe59b78ddfda9"
   file_glob: true
-  file: trusty/*
+  file: "trusty/*"
   skip_cleanup: true
   on:
     tags: true
