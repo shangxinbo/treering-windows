@@ -15,10 +15,6 @@ deploy:
   file_glob: true
   file: 
     - "build/*.AppImage"
-  skip_cleanup: true
+  skip_cleanup: false
   on:
-    tags: false
-    all_branches: true
-branches:
-  except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+    tags: true
