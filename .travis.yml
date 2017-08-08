@@ -33,7 +33,7 @@ install:
 - yarn
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn build; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn run build; fi
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -46,7 +46,7 @@ deploy:
   provider: releases
   api-key: "c589cebd96f6d4a6ed5c6fc350ffe59b78ddfda9"
   file_glob: true
-  file: $TRAVIS_BUILD_DIR/*
+  file: trusty/*
   skip_cleanup: true
   on:
     tags: true
