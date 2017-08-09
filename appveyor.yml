@@ -29,7 +29,6 @@ artifacts:
   - path: build/*.exe
 
 deploy:
-  description: 'nna'
   provider: GitHub
   auth_token:
     secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
