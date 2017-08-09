@@ -31,6 +31,6 @@ deploy:
   provider: GitHub
   auth_token:
     secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
-  artifact: README.md
+  artifact: /*.md/
   on:
     appveyor_repo_tag: true  
