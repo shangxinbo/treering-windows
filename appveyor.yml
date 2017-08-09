@@ -31,7 +31,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
-  artifact: build/*.exe            # upload all NuGet packages to release assets
+  artifact: README.md            # upload all NuGet packages to release assets
   draft: false
   prerelease: false
   on:
