@@ -32,6 +32,5 @@ deploy:
   artifact: 
     - path: README.md 
       name: README.md
-  skip_tags: true
   on:
     appveyor_repo_tag: true  
