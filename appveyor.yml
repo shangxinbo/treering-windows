@@ -30,7 +30,7 @@ deploy:
   description: 'nna'
   provider: GitHub
   auth_token:
-    secure: Ew3aKVhcnaqoNIqdrCQPoBLr0z0lttiU2GazvwOZIBeI4i4NpI4cN5+QJ83ngXPp
+    secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
   artifact: build/*.exe            # upload all NuGet packages to release assets
   draft: false
   prerelease: false
