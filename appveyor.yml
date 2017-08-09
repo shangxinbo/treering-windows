@@ -29,3 +29,15 @@ build_script:
   - yarn build
 
 test: off
+
+deploy:
+  release: v$(appveyor_build_version)
+  description: 'nna'
+  provider: GitHub
+  auth_token:
+    secure: fSPOeTX1KJXMApFq6K7Pa42Vbu1p0nvPhsEzD/1AiHA5mMMubHM+PllAMse9FaOiQvECEkN/CyMFWQgNHCS1QXUhdeR6H+F8GRfDPa9EpBPPzObn2DGItHtoYk8s/W3kZBvoHBLs7p8KxK7gp5h6LBhItVMRskARDCveM1jNMZH7CzL1+nPNQM7A8weC+6BtWF4U8isUn8UoK42HwOFO7NHWyU57CxbD5yUz6Yg+c3Vdpv6eondrC2mKPSr5FWdcgzZFRJ3boAriZg6vx1b73xsLWYiB1KHcILctQ2yuRGvxloKNngzuSlJ8Zj7M+9s++EfjCj6CD46hH02Qgzm/4REAhSGb3KeOJoOpT0bFAPALZ8CvPH1LS9DC5Owxm6oljp9bwfa8hk98Lj7+PXZIEo/dJVANh3i1RB6fLwZR3Ja38MZYhd9i5B7Occ4nUhuMcSENSgg4tYO1yv4lF0HyKewJVoy/erVg+juCbpV1WqFDt5PfZsDMyTsi656riLSN3a1o6QpdPOuD0k4kJdf+RgTnQs1l39oO4J1gd2vcwrUetacsK+Ggkp7Dx3krH18VdicGL++nf1I23p89/CUz0JH6PQks7e2cTgfLlgXE8hpQlxqEOKlNyiCtAEgQO8n/6NNihh8J+DRM0wkoMyu7jKNkTJTdtQvmQOsJTYHO5gw= 
+  artifact: /build\/*.exe/            # upload all NuGet packages to release assets
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true        # deploy on tag push only
