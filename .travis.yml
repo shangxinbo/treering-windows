@@ -18,7 +18,3 @@ deploy:
   on:
     repo: shangxinbo/treering-windows
     tags: true
-
-branches:
-  except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
