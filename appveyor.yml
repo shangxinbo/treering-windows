@@ -25,13 +25,12 @@ build_script:
 test: off
 
 artifacts:
-  - path: src/*.ejs
-  - path: build/*.exe
+  - path: README.md
 
 deploy:
   provider: GitHub
   auth_token:
     secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
-  artifact: /src\/*.ejs/
+  artifact: README.md
   on:
     appveyor_repo_tag: true  
