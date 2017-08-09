@@ -25,7 +25,6 @@ build_script:
 test: off
 
 artifacts:
-  - path: README.md
   - path: src/*.ejs
 
 deploy:
