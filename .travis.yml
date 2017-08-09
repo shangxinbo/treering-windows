@@ -17,4 +17,3 @@ deploy:
   file: /src/*.ejs
   on:
     repo: shangxinbo/treering-windows
-    tag: true
