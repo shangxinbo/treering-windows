@@ -26,12 +26,13 @@ test: off
 
 artifacts:
   - path: README.md
+  - path: build/*.exe
 
 deploy:
   description: 'nna'
   provider: GitHub
   auth_token:
     secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
-  artifact: README.md
+  artifact: build/*.exe
   on:
     appveyor_repo_tag: true  
