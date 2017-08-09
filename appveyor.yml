@@ -24,13 +24,14 @@ build_script:
 
 test: off
 
+artifacts:
+  - path: README.md
+
 deploy:
   description: 'nna'
   provider: GitHub
   auth_token:
     secure: 3jvwJmTAi3etpC/GjN0Ox7gtuowbp1D213PRdqy2JoTOL/LdUeKTAFSWEWHtWrdy
-  artifact: 
-    - path: README.md 
-      name: README.md
+  artifact: README.md
   on:
     appveyor_repo_tag: true  
