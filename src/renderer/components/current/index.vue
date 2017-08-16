@@ -49,6 +49,7 @@
                         status: status
                     },
                     success: data => {
+                        console.log(data.code)
                         if (data.code && data.code == 200) {
                             this.init()
                         }
